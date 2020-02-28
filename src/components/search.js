@@ -9,34 +9,39 @@ class Search extends React.Component {
         super(props);
         console.log(props)
         this.state = {
-            isActive: false
+            buttons: [
+                {name:"spirit", content:"Search By Spirit", active:false},
+                {name:"ingredient", content:"Search By Ingredient", active:false},
+                {name:"glass", content:"Search By Glass", active:false},
+                {name:"random", content:"Surpise Me", active:false},
+                {name:"tiki", content:"Feelin' Tiki", active:false},
+                {name:"favorites", content:"Favorites", active:false}  
+            ]
         }
     }
 
-    handleClick() {
-        console.log("button clicked");
+    handleClick(i) {
         console.log(this)
+        console.log(this.state)
+
+        let newState = this.state;
+        newState.buttons[i].active = !newState.buttons[i].isActive
         this.setState({
-            isActive: true
+           newState
         }, function () {
-            // setState is asynchronous! This function gets called
-            // when it's finished.
-            console.log("Job's done");
-        });
-        console.log(this)
+            console.log(this)
+            console.log(this.state)
+            console.log(this.newState)
 
-
+        });   
     }
 
     render() {
         return (
             <div className="search-options" >
-                <Button id="spirit" variant="outline-success" isActive={this.state.isActive?"true":"false"} onClick={this.handleClick.bind(this)}>Search by Spirit</Button>
-                <Button id="ingredients" variant="outline-success" onClick={this.handleClick}>Search by Ingredients</Button>
-                <Button id="glass" variant="outline-success" onClick={this.handleClick}>Search by Glass Type</Button>
-                <Button id="surprise" variant="outline-success" onClick={this.handleClick}>Surprise Me!</Button>
-                <Button id="tiki" variant="outline-success" onClick={this.handleClick}>I'm Feelin' Tiki!</Button>
-                <Button id="favorites" variant="outline-success" onClick={this.handleClick}>Browse Favorites</Button>
+                {this.state.buttons.map((button, i) =>
+                <Button id={button.name}variant="outline-success" active={button.active} onClick={()=> this.handleClick(i)}>{button.content}</Button>
+                )}
             </div>
         )
     }
