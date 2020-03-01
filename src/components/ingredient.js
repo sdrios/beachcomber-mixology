@@ -1,21 +1,22 @@
 import React from 'react';
+import {Form} from 'react-bootstrap';
 
-class SearchByTiki extends React.Component {
+class SearchByIngredient extends React.Component {
 constructor(props) {
         super(props);
         // console.log(props)
         this.state = {
-            searchType: "tiki"
+            searchType: "ingredient"
         }
     }
     render() {
         return (
             <div className = {this.state.searchType}>
-                SEARCH BY TIKI
+                SEARCH BY Ingredient
             </div>
         )
     }
 
 }
 
-export default SearchByTiki;
+export default SearchByIngredient;

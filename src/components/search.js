@@ -1,10 +1,12 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-
+import SearchBySpirit from './spirit';
+import SearchByIngredient from './ingredient';
+import SearchByGlass from './glass';
+import SearchByRandom from './random';
+import SearchByTiki from './tiki';
 
 class Search extends React.Component {
-
-
     constructor(props) {
         super(props);
         // console.log(props)
@@ -18,17 +20,11 @@ class Search extends React.Component {
                 { name: "favorites", content: "Favorites", active: false }
             ],
             searchType: "spirit"
-
         }
     }
 
     handleClick(index) {
         let newState = this.state;
-
-        // let activeButton = newState.buttons.filter( (button) =>{
-        //     return button.active === true; //returns array of button objects that are active
-        // });
-        // console.log(activeButton);
 
         //handle previously active button
         newState.buttons.map((button, i) => {
@@ -36,6 +32,7 @@ class Search extends React.Component {
                 button.active = false;
             }
         })
+
         //make selected button active
         newState.buttons[index].active = !newState.buttons[index].active
 
@@ -52,6 +49,24 @@ class Search extends React.Component {
     }
 
     render() {
+        let component;
+        switch (this.state.searchType) {
+            case "spirit":
+                component = <SearchBySpirit />
+                break;
+            case "ingredient":
+                component = <SearchByIngredient />
+                break;
+            case "glass":
+                component = <SearchByGlass />
+                break;
+            case "random":
+                component = <SearchByRandom />
+                break;
+            case "tiki":
+                component = <SearchByTiki />
+                break;
+        }
         return (
             <div className="search" >
                 <div className="buttons">
@@ -59,10 +74,7 @@ class Search extends React.Component {
                         <Button key={button.name} variant="outline-success" active={button.active} onClick={() => this.handleClick(i)}>{button.content}</Button>
                     )}
                 </div>
-                <div className={this.state.searchType}>
-
-                    
-                </div>
+                {component}
             </div>
         )
     }

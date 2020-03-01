@@ -6,7 +6,6 @@ import Header from './components/header';
 import Search from './components/search';
 import Recipe from './components/recipe';
 import Footer from './components/footer';
-import Tiki from './components/tiki';
 import {Jumbotron} from 'react-bootstrap';
 
 
