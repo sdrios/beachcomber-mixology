@@ -6,6 +6,7 @@ import Header from './components/header';
 import Search from './components/search';
 import Recipe from './components/recipe';
 import Footer from './components/footer';
+import Tiki from './components/tiki';
 import {Jumbotron} from 'react-bootstrap';
 
 
@@ -16,7 +17,7 @@ function App() {
       <Header></Header>
       <Jumbotron>
         <Search></Search>
-        <Recipe></Recipe>
+       
       </Jumbotron>
       <Footer></Footer>
     </div>
