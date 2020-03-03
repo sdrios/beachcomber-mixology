@@ -25,7 +25,9 @@ class SearchByIngredient extends React.Component {
             .then((resJSON) => {
                 let ingredientsList = []
                 resJSON.drinks.map((drink) => {
-                    ingredientsList.push(drink.strIngredient1)
+                    let ingredient = drink.strIngredient1;
+                    let capitalIngredient = ingredient.charAt(0).toUpperCase() + ingredient.substring(1);
+                    ingredientsList.push(capitalIngredient);
                 })
 
                 // ingredientsList.filter((ingredient)=>{
@@ -34,7 +36,7 @@ class SearchByIngredient extends React.Component {
 
                 this.setState({
                     isLoaded: true,
-                    responseItem: ingredientsList
+                    responseItem: ingredientsList.sort()
                 })
             },
                 (error) => {
