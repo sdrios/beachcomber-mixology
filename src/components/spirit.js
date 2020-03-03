@@ -16,7 +16,6 @@ class SearchBySpirit extends React.Component {
         return (
             <div className={this.state.searchType}>
                 SEARCH BY SPIRIT:
-
                 <Form>
                     <div key={`spirit-radio`} className="mb-3">
                         {spiritsList.map(spirit => (
@@ -29,14 +28,10 @@ class SearchBySpirit extends React.Component {
                         }
 
                     </div>
-
-
-
                 </Form>
             </div>
         )
     }
-
 }
 
 export default SearchBySpirit;

@@ -67,6 +67,7 @@ class Search extends React.Component {
                 component = <SearchByTiki />
                 break;
         }
+        
         return (
             <div className="search" >
                 <div className="buttons">
