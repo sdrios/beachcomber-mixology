@@ -2,7 +2,6 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import SearchBySpirit from './spirit';
 import SearchByIngredient from './ingredient';
-import SearchByGlass from './glass';
 import SearchByRandom from './random';
 import SearchByTiki from './tiki';
 
@@ -14,7 +13,6 @@ class Search extends React.Component {
             buttons: [
                 { name: "spirit", content: "Search By Spirit", active: false },
                 { name: "ingredient", content: "Search By Ingredient", active: false },
-                { name: "glass", content: "Search By Glass", active: false },
                 { name: "random", content: "Surpise Me", active: false },
                 { name: "tiki", content: "Feelin' Tiki", active: false },
                 { name: "favorites", content: "Favorites", active: false }
@@ -57,9 +55,6 @@ class Search extends React.Component {
             case "ingredient":
                 component = <SearchByIngredient />
                 break;
-            case "glass":
-                component = <SearchByGlass />
-                break;
             case "random":
                 component = <SearchByRandom />
                 break;
@@ -67,7 +62,7 @@ class Search extends React.Component {
                 component = <SearchByTiki />
                 break;
         }
-        
+
         return (
             <div className="search" >
                 <div className="buttons">

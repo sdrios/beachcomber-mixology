@@ -32,31 +32,40 @@ class SearchByRandom extends React.Component {
         fetch("https://www.thecocktaildb.com/api/json/v1/1/random.php")
             .then(res => res.json())
             .then((resJSON) => {
-                let recipe = resJSON.drinks[0];
-                //let ingredients = [];
-                //let measurements = [];
-                let drinkName = recipe.strDrink;
+                let recipe = resJSON.drinks[0]; //access recipe object
+                let ingredients = []; //declare ingredients array
+                let measurements = []; //declare measurements array
+                let measureIngredients = []; //declare measurement - ingredients array
+                let drinkName = recipe.strDrink; //drink name
+                let drinkImg = recipe.strDrinkThumb; //drink thumbnail
+                let drinkInstruct = recipe.strInstructions; //drink instructions
 
-                console.log(recipe.strDrink);
-                console.log(recipe.strInstructions);
-                //ingredients - up to 15
-                let ingredients = recipe.strIngredient1;
-                //    for (i = 0; i <= 15; i++){
-                //        ingredients.push(recipe.strIngredient1)
-                //    }
+                //collect ingredients - up to 15
+                for (let i = 1; i <= 15; i++) {
+                    let ingredient = "strIngredient" + i;
+                    if (recipe[ingredient] !== null) {
+                        ingredients.push(recipe[ingredient])
+                    }
+                }
 
-                // measurements - up to 15
-                let measurements = recipe.strMeasure1;
+                //collect measurements - up to 15
+                for (let i = 1; i <= 15; i++) {
+                    let measurement = "strMeasure" + i;
+                    if (recipe[measurement] !== null) {
+                        measurements.push(recipe[measurement])
+                    }
+                }
 
-                //drink thumbnail
-                let drinkImg = recipe.strDrinkThumb;
-                let drinkInstruct = recipe.strInstructions;
+                //concatenate measurements + ingredients 
+                 for (let i = 0; i < measurements.length; i++) {
+                     let combined = measurements[i] +' '+ingredients[i];
+                     measureIngredients.push(combined);
+                }
 
                 this.setState({
                     isLoaded: true,
                     responseItem: recipe,
-                    ingredients: ingredients,
-                    measurements: measurements,
+                    measureIngredients:measureIngredients,
                     drinkName: drinkName,
                     drinkInstruct: drinkInstruct,
                     drinkImg: drinkImg
@@ -73,7 +82,7 @@ class SearchByRandom extends React.Component {
     }
 
     render() {
-        const { error, isLoaded, ingredients, measurements, drinkName, drinkInstruct, drinkImg } = this.state;
+        const { error, isLoaded, measureIngredients, drinkName, drinkInstruct, drinkImg } = this.state;
 
         if (error) {
             return <div>Error: {error.message}</div>
@@ -84,13 +93,21 @@ class SearchByRandom extends React.Component {
                 <div className={this.state.searchType}>
                     SEARCH BY RANDOM:
                     <div>
-                    {ingredients}
-                    {measurements}
-                    {drinkName}
-                    {drinkInstruct}
-                    {drinkImg}
+                        <ul>
+                            {measureIngredients.map(ingredient => (
+                                <li key={ingredient} >{ingredient}</li>
+                            )) 
+                             }
+                        </ul>
+                  
+                       <img src={drinkImg}></img>
+                        {drinkName}
+               
+                  
+                        {drinkInstruct}
+
                     </div>
-                   
+
                     <button onClick={this.reFetch}>Search Again</button>
                 </div>
             )

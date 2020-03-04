@@ -10,7 +10,8 @@ class SearchByIngredient extends React.Component {
             searchQuery: "empty search",
             error: null,
             isLoaded: false,
-            responseItem: ''
+            responseIngredients: '',
+            filteredIngredients: ''
         }
     }
 
@@ -30,13 +31,12 @@ class SearchByIngredient extends React.Component {
                     ingredientsList.push(capitalIngredient);
                 })
 
-                // ingredientsList.filter((ingredient)=>{
-                //     (ingredient )
-                // })
+                let ingredientsListSort = ingredientsList.sort();
 
                 this.setState({
                     isLoaded: true,
-                    responseItem: ingredientsList.sort()
+                    responseIngredients: ingredientsListSort,
+                    filteredIngredients: ingredientsListSort
                 })
             },
                 (error) => {
@@ -49,32 +49,64 @@ class SearchByIngredient extends React.Component {
             )
     }
 
+    ingredientsFilter(e) {
+        const {responseIngredients} = this.state; //declare original response ingredients array
+
+        //convert user input to lowercase for filtering
+        let lowercaseInput = e.target.value.toLowerCase();
+
+        //convert ingredients list to lowercase for filtering
+        let lowercaseIngredients = responseIngredients.map((ingredient) => {
+            let lowercaseItem = ingredient.toLowerCase();
+            return lowercaseItem;
+        })
+
+        //filter ingredients + user input
+        let filtered = lowercaseIngredients.filter((ingredient) => {
+            return ingredient.includes(lowercaseInput);
+        })
+
+        //convert filtered ingredients list back to original case for rendering
+         let filteredCaseIngredients = filtered.map((ingredient) => {
+            let uppercaseItem = ingredient.charAt(0).toUpperCase() + ingredient.substring(1);
+            return uppercaseItem;
+        })
+
+        this.setState({
+            filteredIngredients: filteredCaseIngredients
+        })
+    }
+
+    handleSubmit(){
+        
+    }
+
     render() {
-        const { error, isLoaded, responseItem } = this.state;
+        const { error, isLoaded, filteredIngredients } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>
         } else if (!isLoaded) {
             return <div>Loading Beachbums...</div>
         } else {
             return (
-                <div className={this.state.searchType}>
-                    SEARCH BY Ingredient:
-                      <Form>
+                <Form>
+                    <div className={this.state.searchType}>
+
+                        <input type="text" onChange={(e) => this.ingredientsFilter(e)} name="name" placeholder="Search Ingredients.." />
+
                         <div key={`ingredient-radio`} className="mb-3">
-                            {responseItem.map(responseItem => (
-                               
-                               
+                            {filteredIngredients.map(responseItem => (
                                 <Form.Check
                                     type='radio'
-                                    id={responseItem}
+                                    key={responseItem}
                                     label={responseItem}
                                 />
                             ))
                             }
 
                         </div>
-                    </Form>
-                </div>
+                    </div>
+                </Form>
             )
 
         }

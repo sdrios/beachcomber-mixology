@@ -21,7 +21,7 @@ class SearchBySpirit extends React.Component {
                         {spiritsList.map(spirit => (
                             <Form.Check
                                 type='radio'
-                                id={spirit}
+                                key={spirit}
                                 label={spirit}
                             />
                         ))

@@ -6,7 +6,7 @@ import Header from './components/header';
 import Search from './components/search';
 import Recipe from './components/recipe';
 import Footer from './components/footer';
-import {Jumbotron} from 'react-bootstrap';
+//import {Jumbotron} from 'react-bootstrap';
 
 
 
@@ -14,10 +14,7 @@ function App() {
   return (
     <div>
       <Header></Header>
-      <Jumbotron>
         <Search></Search>
-       
-      </Jumbotron>
       <Footer></Footer>
     </div>
   );
