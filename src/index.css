@@ -5,9 +5,55 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image:url('https://images.unsplash.com/photo-1581775275191-f5f151f0a9dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80');
+  background-position: top;
+  background-size: cover;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.random-card {
+ align-self:center;
+}
+
+.random{
+ display:flex;
+align-items:center;
+}
+
+.ingredient-search{
+  background-color:white;
+  align-self:center;
+}
+
+.ingredient{
+ display:flex;
+align-items:center;
+}
+
+.ingredient-items{
+  max-height:500px;
+  overflow: hidden;
+  display:none;
+}
+
+.ingredient-item:hover{
+  background-color:yellowgreen;
+}
+
+.spirit-search{
+  background-color:white;
+  align-self:center;
+}
+
+.spirit{
+ display:flex;
+align-items:center;
+}
+
+.spirit-item:hover{
+  background-color:yellowgreen;
 }

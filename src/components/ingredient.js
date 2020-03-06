@@ -50,7 +50,17 @@ class SearchByIngredient extends React.Component {
     }
 
     ingredientsFilter(e) {
-        const {responseIngredients} = this.state; //declare original response ingredients array
+        const { responseIngredients } = this.state; //declare original response ingredients array
+
+        if (e.target.value !== ''){
+        document.getElementById("ingredient-items").style.display = "block";
+        }
+        else {
+        document.getElementById("ingredient-items").style.display = "none";
+
+        }
+          
+           // console.log(document.getElementsByClassName("ingredient-item").length);
 
         //convert user input to lowercase for filtering
         let lowercaseInput = e.target.value.toLowerCase();
@@ -67,7 +77,7 @@ class SearchByIngredient extends React.Component {
         })
 
         //convert filtered ingredients list back to original case for rendering
-         let filteredCaseIngredients = filtered.map((ingredient) => {
+        let filteredCaseIngredients = filtered.map((ingredient) => {
             let uppercaseItem = ingredient.charAt(0).toUpperCase() + ingredient.substring(1);
             return uppercaseItem;
         })
@@ -77,8 +87,13 @@ class SearchByIngredient extends React.Component {
         })
     }
 
-    handleSubmit(){
-        
+    handleClick(e){
+        console.log("CLICKED")
+
+    }
+
+    handleSubmit() {
+
     }
 
     render() {
@@ -90,29 +105,25 @@ class SearchByIngredient extends React.Component {
         } else {
             return (
                 <Form>
-                    <div className={this.state.searchType}>
+                    <div className="ingredient">
+                        <div className="ingredient-search">
+                            <input autoComplete="off" type="text" onChange={(e) => this.ingredientsFilter(e)} name="name" placeholder="Search Ingredients.." />
 
-                        <input type="text" onChange={(e) => this.ingredientsFilter(e)} name="name" placeholder="Search Ingredients.." />
-
-                        <div key={`ingredient-radio`} className="mb-3">
-                            {filteredIngredients.map(responseItem => (
-                                <Form.Check
-                                    type='radio'
-                                    key={responseItem}
-                                    label={responseItem}
-                                />
-                            ))
-                            }
-
+                            <div id="ingredient-items" className="ingredient-items">
+                                {filteredIngredients.map(responseItem => (
+                                    <li className="ingredient-item" onClick={(e) => this.handleClick(e)}
+                                        key={responseItem}
+                                        label={responseItem}
+                                    >{responseItem}</li>
+                                ))
+                                }
+                            </div>
                         </div>
                     </div>
                 </Form>
             )
-
         }
-
     }
-
 }
 
 export default SearchByIngredient;

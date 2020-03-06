@@ -14,7 +14,7 @@ function App() {
   return (
     <div>
       <Header></Header>
-        <Search></Search>
+      <Search></Search>
       <Footer></Footer>
     </div>
   );

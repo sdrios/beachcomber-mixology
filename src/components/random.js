@@ -94,25 +94,26 @@ class SearchByRandom extends React.Component {
             return <div>Loading Beachbums...</div>
         } else {
             return (
-                <div className={this.state.searchType}>
-                    <Card style={{ width: '18rem' }}>
-                        <Card.Img variant="top" src={drinkImg} fluid />
-                        <Card.Body>
-                            <Card.Title>{drinkName}</Card.Title>
-                            <Card.Text>
-                                <ul>
+                <div className="random">
+                    <div className="random-card">
 
-                                    {measureIngredients.map(ingredient => (
-                                        <li key={ingredient} >{ingredient}</li>
-                                    ))
-                                    }
-                                </ul>
-                                {drinkInstruct}
-
-                            </Card.Text>
-                            <Button onClick={this.reFetch} variant="primary">Search Again</Button>
-                        </Card.Body>
-                    </Card>
+                        <Card style={{ width: '18rem' }}>
+                            <Card.Img variant="top" src={drinkImg} fluid />
+                            <Card.Body>
+                                <Card.Title>{drinkName}</Card.Title>
+                                <Card.Text>
+                                    <ul>
+                                        {measureIngredients.map(ingredient => (
+                                            <li key={ingredient} >{ingredient}</li>
+                                        ))
+                                        }
+                                    </ul>
+                                    {drinkInstruct}
+                                </Card.Text>
+                                <Button onClick={this.reFetch} variant="primary">Search Again</Button>
+                            </Card.Body>
+                        </Card>
+                    </div>
                 </div>
             )
         }

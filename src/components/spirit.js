@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 
 class SearchBySpirit extends React.Component {
     constructor(props) {
@@ -10,25 +10,37 @@ class SearchBySpirit extends React.Component {
             spirits: ["Gin", "Rum", "Vodka", "Tequilla", "Whiskey", "Bourbon", "Brandy"]
         }
     }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        console.log("SPIRIT SUBMITTED")
+        console.log(typeof e.target);
+        console.log(e.target);
+
+    }
+
     render() {
         let spiritsList = this.state.spirits;
 
         return (
-            <div className={this.state.searchType}>
-                SEARCH BY SPIRIT:
-                <Form>
-                    <div key={`spirit-radio`} className="mb-3">
-                        {spiritsList.map(spirit => (
-                            <Form.Check
-                                type='radio'
-                                key={spirit}
-                                label={spirit}
-                            />
-                        ))
-                        }
-
-                    </div>
-                </Form>
+            <div className="spirit">
+                <div className="spirit-search">
+                    SEARCH BY SPIRIT:
+                <Form onSubmit={(e) => this.handleSubmit(e)}>
+                        <div key={`spirit-radio`} className="mb-3">
+                            {spiritsList.map(spirit => (
+                                <Form.Check
+                                    className="spirit-item"
+                                    type='radio'
+                                    key={spirit}
+                                    label={spirit}
+                                />
+                            ))
+                            }
+                        </div>
+                        <Button variant="outline-success" type="submit"> Submit</Button>
+                    </Form>
+                </div>
             </div>
         )
     }
