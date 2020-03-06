@@ -11,13 +11,12 @@ class Search extends React.Component {
         // console.log(props)
         this.state = {
             buttons: [
+                { name: "tiki", content: "Feelin' Tiki", active: false },
                 { name: "spirit", content: "Search By Spirit", active: false },
                 { name: "ingredient", content: "Search By Ingredient", active: false },
                 { name: "random", content: "Surpise Me", active: false },
-                { name: "tiki", content: "Feelin' Tiki", active: false },
-                { name: "favorites", content: "Favorites", active: false }
             ],
-            searchType: "spirit"
+            searchType: "tiki"
         }
     }
 
@@ -41,8 +40,6 @@ class Search extends React.Component {
         this.setState({
             newState
         }, function () {
-            console.log("State after click function:" +
-                newState)
         });
     }
 
@@ -70,7 +67,9 @@ class Search extends React.Component {
                         <Button key={button.name} variant="outline-success" active={button.active} onClick={() => this.handleClick(i)}>{button.content}</Button>
                     )}
                 </div>
+                <div className={this.state.searchType}>
                 {component}
+                </div>
             </div>
         )
     }

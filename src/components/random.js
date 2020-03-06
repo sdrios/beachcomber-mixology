@@ -9,7 +9,7 @@ class SearchByRandom extends React.Component {
         super(props);
         // console.log(props)
         this.state = {
-            searchType: "Random",
+            searchType: "random",
             error: null,
             isLoaded: false,
             responseItem: '',

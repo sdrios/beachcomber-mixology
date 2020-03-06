@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form } from 'react-bootstrap';
+import { Form, Alert } from 'react-bootstrap';
 
 class SearchByIngredient extends React.Component {
     constructor(props) {
@@ -52,15 +52,15 @@ class SearchByIngredient extends React.Component {
     ingredientsFilter(e) {
         const { responseIngredients } = this.state; //declare original response ingredients array
 
-        if (e.target.value !== ''){
-        document.getElementById("ingredient-items").style.display = "block";
+        if (e.target.value !== '') {
+            document.getElementById("ingredient-items").style.display = "block";
         }
         else {
-        document.getElementById("ingredient-items").style.display = "none";
+            document.getElementById("ingredient-items").style.display = "none";
 
         }
-          
-           // console.log(document.getElementsByClassName("ingredient-item").length);
+
+        // console.log(document.getElementsByClassName("ingredient-item").length);
 
         //convert user input to lowercase for filtering
         let lowercaseInput = e.target.value.toLowerCase();
@@ -87,12 +87,12 @@ class SearchByIngredient extends React.Component {
         })
     }
 
-    handleClick(e){
-        console.log("CLICKED")
-
+    handleClick(e) {
+        console.log("CLICKED AN INGREDIENT")
     }
 
-    handleSubmit() {
+    handleSubmit(e) {
+        console.log("SUBMITTED INGREDIENTS")
 
     }
 
@@ -101,26 +101,27 @@ class SearchByIngredient extends React.Component {
         if (error) {
             return <div>Error: {error.message}</div>
         } else if (!isLoaded) {
-            return <div>Loading Beachbums...</div>
+            return <Alert variant="success">
+    Loading Beachbums...
+  </Alert>
         } else {
             return (
-                <Form>
-                    <div className="ingredient">
-                        <div className="ingredient-search">
-                            <input autoComplete="off" type="text" onChange={(e) => this.ingredientsFilter(e)} name="name" placeholder="Search Ingredients.." />
 
-                            <div id="ingredient-items" className="ingredient-items">
-                                {filteredIngredients.map(responseItem => (
-                                    <li className="ingredient-item" onClick={(e) => this.handleClick(e)}
-                                        key={responseItem}
-                                        label={responseItem}
-                                    >{responseItem}</li>
-                                ))
-                                }
-                            </div>
+                <div className="ingredient-search">
+                    <input autoComplete="off" type="text" onChange={(e) => this.ingredientsFilter(e)} name="name" placeholder="Search Ingredients.." />
+
+                    <Form>
+                        <div id="ingredient-items" className="ingredient-items">
+                            {filteredIngredients.map(responseItem => (
+                                <li className="ingredient-item" onClick={(e) => this.handleClick(e)}
+                                    key={responseItem}
+                                >{responseItem}</li>
+                            ))
+                            }
                         </div>
-                    </div>
-                </Form>
+                    </Form>
+                </div>
+
             )
         }
     }

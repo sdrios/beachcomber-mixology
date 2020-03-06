@@ -23,25 +23,25 @@ class SearchBySpirit extends React.Component {
         let spiritsList = this.state.spirits;
 
         return (
-            <div className="spirit">
                 <div className="spirit-search">
-                    SEARCH BY SPIRIT:
+                    <h4>Select one or three...</h4>
                 <Form onSubmit={(e) => this.handleSubmit(e)}>
-                        <div key={`spirit-radio`} className="mb-3">
+                        
                             {spiritsList.map(spirit => (
-                                <Form.Check
+                                <Form.Check 
                                     className="spirit-item"
                                     type='radio'
                                     key={spirit}
                                     label={spirit}
+                                    value={spirit}
                                 />
                             ))
                             }
-                        </div>
+                        
                         <Button variant="outline-success" type="submit"> Submit</Button>
                     </Form>
                 </div>
-            </div>
+           
         )
     }
 }
