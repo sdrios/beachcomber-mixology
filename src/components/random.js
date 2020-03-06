@@ -1,4 +1,8 @@
 import React from 'react';
+import Image from 'react-bootstrap/Image'
+import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
+
 
 class SearchByRandom extends React.Component {
     constructor(props) {
@@ -57,15 +61,15 @@ class SearchByRandom extends React.Component {
                 }
 
                 //concatenate measurements + ingredients 
-                 for (let i = 0; i < measurements.length; i++) {
-                     let combined = measurements[i] +' '+ingredients[i];
-                     measureIngredients.push(combined);
+                for (let i = 0; i < measurements.length; i++) {
+                    let combined = measurements[i] + ' ' + ingredients[i];
+                    measureIngredients.push(combined);
                 }
 
                 this.setState({
                     isLoaded: true,
                     responseItem: recipe,
-                    measureIngredients:measureIngredients,
+                    measureIngredients: measureIngredients,
                     drinkName: drinkName,
                     drinkInstruct: drinkInstruct,
                     drinkImg: drinkImg
@@ -91,24 +95,24 @@ class SearchByRandom extends React.Component {
         } else {
             return (
                 <div className={this.state.searchType}>
-                    SEARCH BY RANDOM:
-                    <div>
-                        <ul>
-                            {measureIngredients.map(ingredient => (
-                                <li key={ingredient} >{ingredient}</li>
-                            )) 
-                             }
-                        </ul>
-                  
-                       <img src={drinkImg}></img>
-                        {drinkName}
-               
-                  
-                        {drinkInstruct}
+                    <Card style={{ width: '18rem' }}>
+                        <Card.Img variant="top" src={drinkImg} fluid />
+                        <Card.Body>
+                            <Card.Title>{drinkName}</Card.Title>
+                            <Card.Text>
+                                <ul>
 
-                    </div>
+                                    {measureIngredients.map(ingredient => (
+                                        <li key={ingredient} >{ingredient}</li>
+                                    ))
+                                    }
+                                </ul>
+                                {drinkInstruct}
 
-                    <button onClick={this.reFetch}>Search Again</button>
+                            </Card.Text>
+                            <Button onClick={this.reFetch} variant="primary">Search Again</Button>
+                        </Card.Body>
+                    </Card>
                 </div>
             )
         }
