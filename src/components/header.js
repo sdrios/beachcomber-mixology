@@ -5,8 +5,8 @@ class Header extends React.Component {
 
     render() {
         return (
-            <Navbar className="beachcomber-nav" bg="dark" expand="lg">
-                <Navbar.Brand href="#home">Beachcomber Mixology</Navbar.Brand>
+            <Navbar className="beachcomber-nav" expand="lg">
+                <h3>Beachcomber Mixology</h3>
                 {/* <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">

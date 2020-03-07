@@ -64,10 +64,10 @@ class Search extends React.Component {
             <div className="search" >
                 <div className="buttons">
                     {this.state.buttons.map((button, i) =>
-                        <Button key={button.name} variant="outline-success" active={button.active} onClick={() => this.handleClick(i)}>{button.content}</Button>
+                        <Button className="search-button" variant="info" key={button.name} active={button.active} onClick={() => this.handleClick(i)}>{button.content}</Button>
                     )}
                 </div>
-                <div className={this.state.searchType}>
+                <div className="search-components">
                 {component}
                 </div>
             </div>

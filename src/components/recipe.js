@@ -1,59 +1,54 @@
 import React from 'react';
-import {Card, CardDeck} from 'react-bootstrap';
+import { Card, CardDeck } from 'react-bootstrap';
+import ReactCardFlip from 'react-card-flip';
 
 class Recipe extends React.Component {
-
-
-
-    render() {
-        return (
-            <div>
-                <CardDeck>
-                    <Card>
-                        <Card.Img variant="top" src="holder.js/100px160" />
-                        <Card.Body>
-                            <Card.Title>Card title</Card.Title>
-                            <Card.Text>
-                                This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This content is a little bit longer.
-      </Card.Text>
-                        </Card.Body>
-                        <Card.Footer>
-                            <small className="text-muted">Last updated 3 mins ago</small>
-                        </Card.Footer>
-                    </Card>
-                    <Card>
-                        <Card.Img variant="top" src="holder.js/100px160" />
-                        <Card.Body>
-                            <Card.Title>Card title</Card.Title>
-                            <Card.Text>
-                                This card has supporting text below as a natural lead-in to additional
-        content.{' '}
-                            </Card.Text>
-                        </Card.Body>
-                        <Card.Footer>
-                            <small className="text-muted">Last updated 3 mins ago</small>
-                        </Card.Footer>
-                    </Card>
-                    <Card>
-                        <Card.Img variant="top" src="holder.js/100px160" />
-                        <Card.Body>
-                            <Card.Title>Card title</Card.Title>
-                            <Card.Text>
-                                This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This card has even longer content than the first to
-                                show that equal height action.
-      </Card.Text>
-                        </Card.Body>
-                        <Card.Footer>
-                            <small className="text-muted">Last updated 3 mins ago</small>
-                        </Card.Footer>
-                    </Card>
-                </CardDeck>
-            </div>
-        )
+    constructor(props) {
+        super(props);
+        this.state = {
+            error: null,
+            responseItem: '',
+            ingredients: [],
+            measurements: [],
+            drinkName: '',
+            drinkInstruct: '',
+            drinkImg: '',
+            drinkId:'',
+            isFlipped: false
+        }
     }
 
-}
+    cardToggle(e) {
+        this.setState(prevState => ({
+            isFlipped: !prevState.isFlipped
+        }));
+    }
+    
+    render() {
+        const {measureIngredients, drinkName, drinkInstruct, drinkImg, drinkId } = this.props;
+        const {isFlipped} = this.state;
+            return (
+                <div className="recipe-card-component">
+                    <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+                        <Card style={{ width: '18rem' }} id={drinkId} onClick={(e) => this.cardToggle(e, drinkId)}>
+                            <Card.Img src={drinkImg} />
+                        </Card>
+
+                        <Card style={{ width: '18rem' }} id={drinkId} onClick={(e) => this.cardToggle(e, drinkId)}>
+                            <Card.Img variant="top" src='' />
+                            <Card.Body>
+                                <Card.Title>BACK</Card.Title>
+                                <Card.Text>
+                                    back of drink: {drinkName}
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </ReactCardFlip>
+                </div >
+            )
+        }
+    }
+
+
 
 export default Recipe;

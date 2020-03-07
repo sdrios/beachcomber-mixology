@@ -8,6 +8,7 @@ body {
   background-image:url('https://images.unsplash.com/photo-1581775275191-f5f151f0a9dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80');
   background-position: top;
   background-size: cover;
+  background-attachment: fixed;
 }
 
 code {
@@ -15,18 +16,38 @@ code {
     monospace;
 }
 
-.random-card {
- align-self:center;
+.beachcomber-nav, .beachcomber-footer{
+  background-color:#9acd32;
+  /* opacity:0.7; */
+}
+
+.buttons{
+  display:flex;
+  justify-content:space-evenly;
+  padding:20px;
+  
+}
+
+.search-button{
+  width:172px;
+  /* background-color:#cd329a; */
+}
+.search-components{
+  padding-left:10%;
+  padding-right:10%;
 }
 
 .random{
- display:flex;
-align-items:center;
+display:flex;
+
 }
 
 .ingredient-search{
   background-color:white;
-  align-self:center;
+}
+
+.ingredient-search > input{
+  width:100%;
 }
 
 .ingredient{
@@ -44,16 +65,31 @@ align-items:center;
   background-color:yellowgreen;
 }
 
-.spirit-search{
+.spirit-form{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-around;
+  align-items:center;
   background-color:white;
-  align-self:center;
 }
 
 .spirit{
  display:flex;
-align-items:center;
+
 }
 
 .spirit-item:hover{
   background-color:yellowgreen;
+}
+
+.recipe-card-component{
+  display:flex;
+  padding-bottom:20px;
+}
+
+.tiki-cards{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-around;
+  align-content:space-around;
 }

@@ -109,7 +109,6 @@ class SearchByIngredient extends React.Component {
 
                 <div className="ingredient-search">
                     <input autoComplete="off" type="text" onChange={(e) => this.ingredientsFilter(e)} name="name" placeholder="Search Ingredients.." />
-
                     <Form>
                         <div id="ingredient-items" className="ingredient-items">
                             {filteredIngredients.map(responseItem => (
@@ -119,7 +118,7 @@ class SearchByIngredient extends React.Component {
                             ))
                             }
                         </div>
-                    </Form>
+                    </Form> 
                 </div>
 
             )

@@ -6,7 +6,7 @@ class Footer extends React.Component {
 
    render() {
         return (
-            <Navbar className="beachcomber-footer" fixed="bottom" bg="dark" expand="lg">
+            <Navbar className="beachcomber-footer" fixed="bottom" sticky="bottom" expand="lg">
                 <Navbar>Beachcomber Mixology</Navbar>
                 {/* <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">

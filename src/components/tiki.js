@@ -1,6 +1,5 @@
 import React from 'react';
-import { Card, CardDeck } from 'react-bootstrap';
-import ReactCardFlip from 'react-card-flip';
+import Recipe from './recipe.js'
 
 class SearchByTiki extends React.Component {
     constructor(props) {
@@ -17,7 +16,6 @@ class SearchByTiki extends React.Component {
             drinkInstruct: '',
             drinkImg: '',
             responseDrinks: [],
-            isFlipped: false
         }
     }
 
@@ -33,10 +31,9 @@ class SearchByTiki extends React.Component {
     }
 
     tikiFetch() {
-        fetch("https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic")
+        fetch("https://www.thecocktaildb.com/api/json/v2/9973533/filter.php?a=Non_Alcoholic")
             .then(res => res.json())
             .then((resJSON) => {
-
                 //console.log(resJSON.drinks);
                 // for (let i =1;  i < resJSON.drinks.length; i++){
                 //     console.log(resJSON.drinks[i]);
@@ -48,7 +45,6 @@ class SearchByTiki extends React.Component {
                 //let drinkName = recipe.strDrink; //drink name
                 //let drinkImg = recipe.strDrinkThumb; //drink thumbnail
                 //let drinkInstruct = recipe.strInstructions; //drink instructions
-
                 //collect ingredients - up to 15
                 // for (let i = 1; i <= 15; i++) {
                 //     let ingredient = "strIngredient" + i;
@@ -56,7 +52,6 @@ class SearchByTiki extends React.Component {
                 //         ingredients.push(recipe[ingredient])
                 //     }
                 // }
-
                 //collect measurements - up to 15
                 // for (let i = 1; i <= 15; i++) {
                 //     let measurement = "strMeasure" + i;
@@ -64,13 +59,11 @@ class SearchByTiki extends React.Component {
                 //         measurements.push(recipe[measurement])
                 //     }
                 // }
-
                 //concatenate measurements + ingredients 
                 // for (let i = 0; i < measurements.length; i++) {
                 //     let combined = measurements[i] + ' ' + ingredients[i];
                 //     measureIngredients.push(combined);
                 // }
-
                 this.setState({
                     isLoaded: true,
                     responseDrinks: responseDrinks
@@ -91,54 +84,23 @@ class SearchByTiki extends React.Component {
             )
     }
 
-    cardToggle(e) {
-        (console.log("TOGGLED"))
-        console.log(e.target)
-        this.setState(prevState => ({
-            isFlipped: !prevState.isFlipped
-        }));
-    }
-
     render() {
-        const { error, isLoaded, isFlipped, responseDrinks, measureIngredients, drinkName, drinkInstruct, drinkImg, drinkId } = this.state;
-        console.log(responseDrinks);
+        const { error, isLoaded,responseDrinks, measureIngredients, drinkName, drinkInstruct, drinkImg, drinkId } = this.state;
+        // console.log(responseDrinks);
         if (error) {
             return <div>Error: {error.message}</div>
         } else if (!isLoaded) {
             return <div>Loading Beachbums...</div>
         } else {
+            
             return (
                 <div className="tiki-cards">
-                   
-                        {responseDrinks.map(drink => (
-                        <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="horizontal">
-                                <Card id={drink.IdDrink} onClick={(e) => this.cardToggle(e)}>
-                                    {console.log({drink})}
-                                    <Card.Img variant="top" src={drink.strDrinkThumb} />
-                                    <Card.Body>
-                                        <Card.Title>{drink.strDrink}</Card.Title>
-                                    </Card.Body>
-                                    <Card.Footer>
-                                        <small className="text-muted">{drink.IdDrink}</small>
-                                    </Card.Footer>
-                                </Card>
-                            
-                                <Card id={drink.IdDrink} onClick={() => this.cardToggle()}>
-                                    <Card.Img variant="top" src='' />
-                                    <Card.Body>
-                                        <Card.Title>BACK</Card.Title>
-                                        <Card.Text>
-                                            back of drink: {drink.strDrink}
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
-                               </ReactCardFlip>
-                            ))}
-                   
-                </div >
+                    {responseDrinks.map(drink => (
+                        <Recipe drinkId={drink.idDrink}drinkName={drink.strDrink} drinkImg={drink.strDrinkThumb}/>
+                    ))}
+                </div>
             )
         }
-
     }
 }
 
