@@ -12,7 +12,7 @@ class Search extends React.Component {
         this.state = {
             buttons: [
                 { name: "tiki", content: "Feelin' Tiki", active: false },
-                { name: "spirit", content: "Search By Spirit", active: false },
+               
                 { name: "ingredient", content: "Search By Ingredient", active: false },
                 { name: "random", content: "Surpise Me", active: false },
             ],
