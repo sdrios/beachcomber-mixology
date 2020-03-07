@@ -5,7 +5,7 @@ import './App.css';
 import Header from './components/header';
 import Search from './components/search';
 //import Recipe from './components/recipe';
-import Footer from './components/footer';
+//import Footer from './components/footer';
 //import {Jumbotron} from 'react-bootstrap';
 
 function App() {

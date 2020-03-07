@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'react-bootstrap/Image'
+//import Image from 'react-bootstrap/Image'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 
@@ -13,8 +13,6 @@ class SearchByRandom extends React.Component {
             error: null,
             isLoaded: false,
             responseItem: '',
-            ingredients: [],
-            measurements: [],
             drinkName: '',
             drinkInstruct: '',
             drinkImg: ''
@@ -38,38 +36,23 @@ class SearchByRandom extends React.Component {
             .then((resJSON) => {
                 let recipe = resJSON.drinks[0]; //access recipe object
                 let ingredients = []; //declare ingredients array
-                let measurements = []; //declare measurements array
-                let measureIngredients = []; //declare measurement - ingredients array
                 let drinkName = recipe.strDrink; //drink name
                 let drinkImg = recipe.strDrinkThumb; //drink thumbnail
                 let drinkInstruct = recipe.strInstructions; //drink instructions
 
-                //collect ingredients - up to 15
+                //collect ingredients and measurements - up to 15
                 for (let i = 1; i <= 15; i++) {
                     let ingredient = "strIngredient" + i;
-                    if (recipe[ingredient] !== null) {
-                        ingredients.push(recipe[ingredient])
-                    }
-                }
-
-                //collect measurements - up to 15
-                for (let i = 1; i <= 15; i++) {
                     let measurement = "strMeasure" + i;
-                    if (recipe[measurement] !== null) {
-                        measurements.push(recipe[measurement])
+                    if (recipe[ingredient] !== (null)) {
+                        ingredients.push(`${recipe[measurement]} ${recipe[ingredient]}`)
                     }
-                }
-
-                //concatenate measurements + ingredients 
-                for (let i = 0; i < measurements.length; i++) {
-                    let combined = measurements[i] + ' ' + ingredients[i];
-                    measureIngredients.push(combined);
                 }
 
                 this.setState({
                     isLoaded: true,
                     responseItem: recipe,
-                    measureIngredients: measureIngredients,
+                    ingredients: ingredients,
                     drinkName: drinkName,
                     drinkInstruct: drinkInstruct,
                     drinkImg: drinkImg
@@ -86,7 +69,7 @@ class SearchByRandom extends React.Component {
     }
 
     render() {
-        const { error, isLoaded, measureIngredients, drinkName, drinkInstruct, drinkImg } = this.state;
+        const { error, isLoaded, ingredients, drinkName, drinkInstruct, drinkImg } = this.state;
 
         if (error) {
             return <div>Error: {error.message}</div>
@@ -103,7 +86,7 @@ class SearchByRandom extends React.Component {
                                 <Card.Title>{drinkName}</Card.Title>
                                 <Card.Text>
                                     <ul>
-                                        {measureIngredients.map(ingredient => (
+                                        {ingredients.map(ingredient => (
                                             <li key={ingredient} >{ingredient}</li>
                                         ))
                                         }

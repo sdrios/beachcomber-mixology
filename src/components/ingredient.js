@@ -1,5 +1,6 @@
 import React from 'react';
-import { Form, Alert } from 'react-bootstrap';
+import { Row, Button, Alert } from 'react-bootstrap';
+import Recipe from  './recipe.js'
 
 class SearchByIngredient extends React.Component {
     constructor(props) {
@@ -7,11 +8,12 @@ class SearchByIngredient extends React.Component {
         // console.log(props)
         this.state = {
             searchType: "ingredient",
-            searchQuery: "empty search",
+            ingredientQueryList: [],
             error: null,
             isLoaded: false,
-            responseIngredients: '',
-            filteredIngredients: ''
+            responseIngredients: [],
+            filteredIngredients: [],
+            responseDrinks: []
         }
     }
 
@@ -57,10 +59,7 @@ class SearchByIngredient extends React.Component {
         }
         else {
             document.getElementById("ingredient-items").style.display = "none";
-
         }
-
-        // console.log(document.getElementsByClassName("ingredient-item").length);
 
         //convert user input to lowercase for filtering
         let lowercaseInput = e.target.value.toLowerCase();
@@ -87,40 +86,88 @@ class SearchByIngredient extends React.Component {
         })
     }
 
-    handleClick(e) {
-        console.log("CLICKED AN INGREDIENT")
+    addIngredient(e, ingredient) {
+
+        document.getElementById("ingredient-items").style.display = "none";
+
+        let currentIngredientList = this.state.ingredientQueryList;
+        let ingredientQuery = ingredient.responseItem;
+        currentIngredientList.push(ingredientQuery);
+
+        this.setState(prevState => ({
+            ingredientQueryList: currentIngredientList
+        }));
     }
 
     handleSubmit(e) {
         console.log("SUBMITTED INGREDIENTS")
+        let ingredientQuery = this.state.ingredientQueryList;
+        let ingredientQueryString = ingredientQuery.join();
 
+        console.log(ingredientQueryString)
+
+        let ingredientFetchURL = "https://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i=" + ingredientQueryString;
+        this.drinkFetch(ingredientFetchURL);
+    }
+
+    drinkFetch(URL) {
+        fetch(URL)
+            .then(res => res.json())
+            .then((resJSON) => {
+
+                let responseDrinks = resJSON.drinks;
+
+                this.setState({
+                    isLoaded: true,
+                    responseDrinks: responseDrinks
+                })
+            },
+                (error) => {
+                    console.log("ERROR!")
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    })
+                }
+            )
     }
 
     render() {
-        const { error, isLoaded, filteredIngredients } = this.state;
+        const { error, isLoaded, responseDrinks, filteredIngredients, ingredientQueryList } = this.state;
         if (error) {
-            return <div>Error: {error.message}</div>
+            return <Alert variant="success">{error.message}<br>Could not load results. Please try again.</br></Alert>
         } else if (!isLoaded) {
-            return <Alert variant="success">
-    Loading Beachbums...
-  </Alert>
+            return <Alert variant="success">Loading Beachbums...</Alert>
         } else {
+            console.log(ingredientQueryList);
+            console.log(responseDrinks);
             return (
 
                 <div className="ingredient-search">
-                    <input autoComplete="off" type="text" onChange={(e) => this.ingredientsFilter(e)} name="name" placeholder="Search Ingredients.." />
-                    <Form>
-                        <div id="ingredient-items" className="ingredient-items">
-                            {filteredIngredients.map(responseItem => (
-                                <li className="ingredient-item" onClick={(e) => this.handleClick(e)}
-                                    key={responseItem}
-                                >{responseItem}</li>
-                            ))
-                            }
-                        </div>
-                    </Form> 
-                </div>
+                    <Row className="ingredient-input">
+                        <input autoComplete="off" type="text" onChange={(e) => this.ingredientsFilter(e)} name="name" placeholder="Search Ingredients.." />
+                        <Button onClick={(e) => this.handleSubmit(e)} size="sm" variant="info">Submit</Button>
+                    </Row>
+                    <div id="ingredient-items" className="ingredient-items">
+                        {filteredIngredients.map((responseItem, index) => (
+                            <li className="ingredient-item" onClick={(e) => this.addIngredient(e, { responseItem })}
+                                key={index}
+                            >{responseItem}</li>
+                        ))
+                        }
+                    </div>
+                    <div className="ingredient-query-list">
+                        {ingredientQueryList.map(ingredientQuery => (
+                            <Button size="sm" variant="info" key={ingredientQuery}>{ingredientQuery}</Button>
+                        ))}
+                    </div>
 
+                    <div className="tiki-cards">
+                        {responseDrinks.map(drink => (
+                            <Recipe drinkId={drink.idDrink} drinkName={drink.strDrink} drinkImg={drink.strDrinkThumb} />
+                        ))}
+                    </div>
+                </div>
             )
         }
     }

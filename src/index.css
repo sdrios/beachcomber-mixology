@@ -42,27 +42,36 @@ display:flex;
 
 }
 
-.ingredient-search{
-  background-color:white;
-}
 
-.ingredient-search > input{
-  width:100%;
-}
+
+.ingredient-input{
+  display:flex;
+  justify-content: space-around;
+ align-content: center;
+
+} 
 
 .ingredient{
  display:flex;
-align-items:center;
+  align-items:center;
 }
 
 .ingredient-items{
-  max-height:500px;
+  max-height:300px;
   overflow: hidden;
   display:none;
+  background-color:white;
 }
 
 .ingredient-item:hover{
   background-color:yellowgreen;
+}
+
+.ingredient-query-list{
+  padding:10px;
+  display:flex;
+  flex-wrap:wrap;
+
 }
 
 .spirit-form{
